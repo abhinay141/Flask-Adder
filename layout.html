@@ -1,0 +1,50 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Enter numbers</h1>
+    <!-- <form method="POST" action="/send"> -->
+        <!-- <div class="form-group"> -->
+            <p>enter a:</p><input type="text" name="a" id="a">
+            <p>enter b:</p><input type="text" name="b" id="b">
+
+
+        <!-- </div> -->
+        <input class="btn btn-primary" type="submit" value="submit" onclick="something()"></br>
+        <h1 id="result"></h1>
+
+    </form>
+
+
+</body>
+
+<script>
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+function something()
+{
+    var a = $("#a").val();
+    var b = $('#b').val();
+    console.log(a,b);
+    //lets test this
+    // run the render script
+    var d = {"a":a,"b":b}
+  $.getJSON($SCRIPT_ROOT + '/send', {
+       a: $('input[name="a"]').val(),
+       b: $('input[name="b"]').val()
+     }, function(data) {
+         console.log(data.result);
+       $("#result").text(data.result);
+     }
+
+ );
+
+}
+</script>
+
+</html>
